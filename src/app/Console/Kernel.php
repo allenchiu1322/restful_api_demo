@@ -13,6 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
+        // by hand
+        Commands\MakeDummyData::class,
         //
     ];
 
