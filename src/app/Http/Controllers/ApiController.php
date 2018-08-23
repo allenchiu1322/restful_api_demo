@@ -77,7 +77,7 @@ class ApiController extends Controller
                 ]);
             }
         } else if ($request->isMethod('put')) {
-            $id = trim($request->input('id'));
+//            $id = trim($request->input('id'));
             $name = trim($request->input('name'));
             $tel = trim($request->input('tel'));
             // todo 改用laravel內建validator
@@ -107,7 +107,7 @@ class ApiController extends Controller
                 ]);
                 return Response::json([
                     'result' => 'ok'
-                ]);
+                ], 204);
             }
         } else {
             return Response::json([

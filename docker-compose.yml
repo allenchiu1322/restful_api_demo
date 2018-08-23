@@ -32,6 +32,13 @@ services:
      - 8080:80
     volumes:
      - /sessions
+  swagger-ui:
+    image: swaggerapi/swagger-ui
+    container_name: swagger-ui
+    environment:
+     - API_URL=http://localhost/phonebook.json
+    ports:
+     - 8081:8080
 #  redis:
 #    image: redis:latest
 #    container_name: redis

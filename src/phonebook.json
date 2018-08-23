@@ -1,0 +1,253 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Phonebook",
+    "description": "Practice for restful api development",
+    "termsOfService": "",
+    "contact": {
+      "name": "Allen Chiu"
+    },
+    "license": {
+      "name": "MIT"
+    }
+  },
+  "host": "localhost",
+  "basePath": "/public/api",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/phonebook": {
+      "get": {
+        "description": "Returns all items in phonebook",
+        "operationId": "findPhonebook",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+        ],
+        "responses": {
+          "200": {
+            "description": "phonebook response",
+            "schema": {
+              "type": "array",
+              "items": {
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Creates a new phonebook item.",
+        "operationId": "addPhonebook",
+        "mode": "no-cors",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "phonebook",
+            "in": "body",
+            "description": "Record to add",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewPhonebook"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "phonebook response",
+            "schema": {
+              "$ref": "#/definitions/NewPhonebookResult"
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          }
+        }
+      }
+    },
+    "/phonebook/{id}": {
+      "get": {
+        "description": "Returns an item based on a single ID",
+        "operationId": "findPhonebookById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of item to fetch",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "phonebook response",
+            "schema": {
+              "$ref": "#/definitions/Phonebook"
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "Update an item based on a single ID",
+        "operationId": "updatePhonebookById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of item to fetch",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "phonebook",
+            "in": "body",
+            "description": "Record to update",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewPhonebook"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "phonebook response",
+            "schema": {
+              "$ref": "#/definitions/Phonebook"
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "deletes a single item based on the ID supplied",
+        "operationId": "deletePhonebook",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of phonebook to delete",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "phonebook deleted"
+          },
+          "default": {
+            "description": "unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Phonebook": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/definitions/NewPhonebook"
+        },
+        {
+          "required": [
+            "id"
+          ],
+          "properties": {
+            "id": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        }
+      ]
+    },
+    "NewPhonebook": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "tel": {
+          "type": "string"
+        }
+      }
+    },
+    "PhonebookName": {
+        "type": "string"
+    },
+    "PhonebookTel": {
+        "type": "string"
+    },
+    "ErrorModel": {
+      "type": "object",
+      "required": [
+        "errmeg"
+      ],
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "NewPhonebookResult": {
+      "type": "object",
+      "required": [
+        "result"
+      ],
+      "properties": {
+        "result": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
